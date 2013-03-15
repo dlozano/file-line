@@ -16,7 +16,7 @@ function! s:gotoline()
 	endif
 
 	" Accept file:line:column: or file:line:column and file:line also
-	let names =  matchlist( file, '\(.\{-1,}\):\%(\(\d\+\)\%(:\(\d*\):\?\)\?\)\?$')
+	let names =  matchlist( file, '\(.\{-1,}\):\%(\(\d\+\)\%(:\(\w*\):\?\)\?\)\?$')
 
 	if empty(names)
 		return
@@ -25,7 +25,7 @@ function! s:gotoline()
 	let file_name = names[1]
 	let line_num  = names[2] == ''? '0' : names[2]
 	let  col_num  = names[3] == ''? '0' : names[3]
-
+  let col_num = col_num == 'in' ? '0' : col_num
 	if filereadable(file_name)
 		let l:bufn = bufnr("%")
 
